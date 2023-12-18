@@ -1,7 +1,8 @@
+
 # Sicherheit in der Softwareentwicklung
 LB-183 von Matteo Jakob
 
-Dieses ePortfolio gibt einen Einblick in meine Fortschritte und Erfahrungen in Applikationssicherheit. Es beinhaltet eine detaillierte Analyse aktueller Bedrohungen, die Erkennung und Behebung von Sicherheitslücken, die Implementierung von Mechanismen für Authentifizierung und Autorisierung, die Berücksichtigung sicherheitsrelevanter Aspekte im Entwurf und in der Implementierung sowie die Generierung von Informationen für Auditing und Logging.
+Dieses Portfolio gibt einen Einblick in meine Fortschritte und Erfahrungen in Applikationssicherheit. Es beinhaltet eine detaillierte Analyse aktueller Bedrohungen, die Erkennung und Behebung von Sicherheitslücken, die Implementierung von Mechanismen für Authentifizierung und Autorisierung, die Berücksichtigung sicherheitsrelevanter Aspekte im Entwurf und in der Implementierung sowie die Generierung von Informationen für Auditing und Logging.
 
 
 ## Handlungsziel 1
@@ -19,7 +20,7 @@ Das Artefakt umfasst eine Bewertung von fünf Sicherheitsszenarien hinsichtlich 
 Auch beinhaltet es die wichtigsten Sicherheitsrisiken für eine Webapplikation mittels OWASP, es werden mehrere Fragen dazu beantwortet.
 
 #### Rückblick
-Die Umsetzung des Artefakts war erfolgreich, da es eine detaillierte Analyse der Sicherheitsszenarien bietet und die Auswirkungen auf die Schutzziele bewertet. Es ermöglicht eine fundierte Beurteilung der Bedrohungen in Bezug auf Vertraulichkeit, Intedgrität und Verfügbarkeit.
+Die Umsetzung des Artefakts war erfolgreich, da es eine detaillierte Analyse der Sicherheitsszenarien bietet und die Auswirkungen auf die Schutzziele bewertet. Es ermöglicht eine fundierte Beurteilung der Bedrohungen in Bezug auf Vertraulichkeit, Integrität und Verfügbarkeit.
 
 ## Handlungsziel 2
 Sicherheitslücken und ihre Ursachen in einer Applikation erkennen können. Gegenmassnahmen vorschlagen und implementieren können.
@@ -32,11 +33,11 @@ Sicherheitslücken und ihre Ursachen in einer Applikation erkennen können. Gege
 Ich habe dieses Handlungsziel erreicht, indem ich eine Sicherheitslücke in einem Codebeispiel erkennt habe (Bild 1) und diese behoben habe (Bild 2).
 
 #### Erklärung
-Das Artefakt hat eine SQL-Injection Sicherheitslücke, das heisst dass es nicht eine genügende Eingabevalidierung gibt und somit potenzielle Angreiffer mit einem einfachen prompt, wie ``"'; DROP TABLE *; --"``,  die Datenbank kompromieren können. 
+Das Artefakt hat eine SQL-Injektion Sicherheitslücke, das heisst, dass es nicht eine genügende Eingabevalidierung gibt und somit potenzielle Angreifer mit einem einfachen prompt, wie ``"'; DROP TABLE *; --"``, die Datenbank komprimieren können. 
 Um dies zu verhindern, habe ich direkt den User gefiltert, anstatt einen String zu machen.
 
 #### Rückblick
-Die Umsetzung des Artefakts war teilweis erfolgreich, da ich eine SQL-Injection verhindern konnte, jedoch gibt es noch weitere Sicherheitslücken, wie Cross Site Scripting (XSS). XSS ist eine Angriffstechnik, bei der bösartiger Code in Webseiten eingefügt wird, der dann von anderen Nutzern dieser Seite ausgeführt wird. Dadurch können sensible Daten gestohlen werden.
+Die Umsetzung des Artefakts war teilweise erfolgreich, da ich eine SQL-Injektion verhindern konnte, jedoch gibt es noch weitere Sicherheitslücken, wie Cross Site Scripting (XSS). XSS ist eine Angriffstechnik, bei der bösartiger Code in Webseiten eingefügt wird, der dann von anderen Nutzern dieser Seite ausgeführt wird. Dadurch können sensible Daten gestohlen werden.
 
 Hier sind Codebeispiele für XSS:
 ```html
@@ -44,7 +45,7 @@ Hier sind Codebeispiele für XSS:
 <a href="javascript:alert('XSS')">Klick</a> 
 <img src="kitten.png" onload="alert('XSS')"/>
 ```
-Um dies zu beheben muss die Eingabe escaped werden, siehe pics/3.png
+Um dies zu beheben, muss die Eingabe escaped werden, siehe pics/3.png
 
 Somit ist das Handlungsziel erreicht.
 
@@ -105,9 +106,9 @@ Im ersten Teil wird die 2FA während des Login-Prozesses durchgeführt. Falls ei
 Im zweiten Teil wird die 2FA für einen Benutzer aktiviert. Hier wird ein neuer 2FA-Schlüssel generiert, ein Setup-Code erstellt. Der neu generierte Schlüssel wird dem Benutzer zugeordnet und in der Datenbank aktualisiert. Die erfolgreiche Aktivierung wird durch die Bereitstellung eines DTO-Objekts (Auth2FADto) mit dem QR-Code-Setup-Image-URL bestätigt.
 
 #### Rückblick
-Die Umsetzung des Handlungszieles ist teilweise erfolgreich, wir haben 2-Faktor-Authentifizierung angewandt, jedoch noch keine Autoriserung. Autorisierung gibt dem System die Möglichkeit nicht nur normale Benutzer sondern auch Admins hinzuzufügen.
+Die Umsetzung des Handlungszieles ist teilweise erfolgreich, wir haben 2-Faktor-Authentifizierung angewandt, jedoch noch keine Autoriserung. Autorisierung gibt dem System die Möglichkeit, nicht nur normale Benutzer, sondern auch Admins hinzuzufügen.
 
-Um autorisierung zu implementieren, werden wir es in JWT token einschieben:
+Um Autorisierung zu implementieren, werden wir es in JWT Token einschieben:
 
 ```Csharp
 private string CreateToken(User user)
@@ -194,13 +195,13 @@ Das Ziel wird erreicht, indem der Human Factor einbezogen wird ins Programm. Das
 Das gezeigte Artefakt ist eine Methode validateNewPassword, die sicherheitsrelevante Überprüfungen für ein neues Passwort durchführt. Es prüft, ob das Passwort bestimmte Kriterien erfüllt, die für die Sicherheit von Passwörtern relevant sind. Konkret werden folgende Aspekte überprüft:
 
 Kleinschreibung: Es wird geprüft, ob das Passwort mindestens einen Kleinbuchstaben enthält.
-Grosschreibung: Es wird geprüft, ob das Passwort mindestens einen Grossbuchstaben enthält.
+Grossschreibung: Es wird geprüft, ob das Passwort mindestens einen Grossbuchstaben enthält.
 Zahl: Es wird geprüft, ob das Passwort mindestens eine Zahl enthält.
 
 Dies trägt dazu bei, dass die Widerstandsfähigkeit von Passwörtern gegenüber Brute-Force- oder Dictionary-Angriffen erhöht und die allgemeine Sicherheit des Systems gestärkt wird.
 
 #### Rückblick
-Das Handlungsziel wird teilweise erreicht indem die Inbetriebnahme gezeigt wird und erklärt wurde für Human Factor, jedoch nicht Entwurf und Implementierung.
+Das Handlungsziel wird teilweise erreicht, indem die Inbetriebnahme gezeigt wird und für Human Factor, jedoch nicht der Entwurf und die Implementierung.
 
 **Entwurf**
 Beim Entwurf des Programmes muss berücksichtigt werde, dass man die Tests, Fachwissen, Reviews, Zeit, etc. nach Risiko priorisiert 
@@ -263,11 +264,11 @@ Die Zeile _logger.LogInformation($"Login attempt for user '{username}'"); zeigt,
 
 Die Methode AuditLog wird aufgerufen, um eine Audit-Protokollierung durchzuführen. In diesem Fall wird ein Eintrag in einer Audit-Log-Tabelle oder einem Audit-Log-Objekt erstellt, um den Benutzernamen, die Aktion ("Login attempt") und den Zeitstempel des Anmeldeversuchs zu erfassen. 
 
-Bei Auswertung und Alarm wird überprüft, ob verdächtige Aktivitäten beim Anmeldeversuch vorliegen. Falls ja, wird ein Sicherheitsalarm ausgelöst. Die Methode Alarm koennte zum Beispiel folgenden Code enthalten: 
+Bei Auswertung und Alarm wird überprüft, ob verdächtige Aktivitäten beim Anmeldeversuch vorliegen. Falls ja, wird ein Sicherheitsalarm ausgelöst. Die Methode Alarm könnte zum Beispiel folgenden Code enthalten: 
 ```
 _logger.LogWarning($"Security alarm triggered for suspicious activity by user '{username}'");
 ```
-Also der Alarm ist ein weiterer Log output.
+Also der Alarm ist ein weiteres Log-Output.
 Bei der Auswertung könnte zum Beispiel geprüft werden, wie viele Male der User sich an einem Tag eingeloggt hat.
 
 #### Rückblick
