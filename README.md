@@ -1,10 +1,8 @@
-# Applikationssicherheit umsetzen
-Verwenden Sie nicht einfach den Modulnamen. Geben Sie einen passenden, aussagekräftigen Titel für Ihr ePortfolio an.
+# Sicherheit in der Softwareentwicklung
 LB-183 von Matteo Jakob
 
-In der Einleitung beschreiben Sie kurz den Inhalt des ePortfolios, damit die Lesenden einen Überblick haben, was sie erwartet.
-Abschnitt pro Handlungsziel
-Pro Handlungsziel ist ein Abschnitt mit folgendem Inhalt zu erstellen:
+Dieses ePortfolio gibt einen Einblick in meine Fortschritte und Erfahrungen in Applikationssicherheit. Es beinhaltet eine detaillierte Analyse aktueller Bedrohungen, die Erkennung und Behebung von Sicherheitslücken, die Implementierung von Mechanismen für Authentifizierung und Autorisierung, die Berücksichtigung sicherheitsrelevanter Aspekte im Entwurf und in der Implementierung sowie die Generierung von Informationen für Auditing und Logging.
+
 
 ## Handlungsziel 1
 Aktuelle Bedrohungen erkennen und erläutern können. Aktuelle Informationen zum Thema (Erkennung und Gegenmassnahmen) beschaffen und mögliche Auswirkungen aufzeigen und erklären können.
@@ -227,19 +225,57 @@ Mit Entwurf und Implementierung nun erklärt, ist das Handlungsziel erfüllt.
 Informationen für Auditing und Logging generieren. Auswertungen und Alarme definieren und implementieren.
 
 #### Artefakt
-1. Wählen Sie ein Artefakt, welches Sie selbst erstellt haben und anhand dem Sie zeigen können, dass Sie das Handlungsziel erreicht haben.
+```csharp
+public IActionResult Login(string username, string password)
+{
+    // Logger
+    _logger.LogInformation($"Login attempt for user '{username}'");
+
+    // Auditing
+    AuditLog(username, "Login attempt");
+
+    // Auswertung
+    if (c(username))
+    {
+        // Alarm
+        RaiseSecurityAlarm(username);
+        return Unauthorized("Suspicious login attempt detected");
+    }
+
+    // Logger
+    _logger.LogInformation($"Login successful for user '{username}'");
+    return Ok(CreateToken(username));
+}
+
+private void AuditLog(string username, string action)
+{
+    _context.AuditLogs.Add(new AuditLog { Username = username, Action = action, Timestamp = DateTime.UtcNow });
+    _context.SaveChanges();
+}
+
+```
 
 #### Zielerreichung
-2. Weisen Sie nach, wie Sie das Handlungsziel erreicht haben. Verweisen Sie dabei auf das von Ihnen erstellte Artefakt. Das Artefakt muss im ePortfolio sichtbar oder verlinkt sein.
+Das Ziel wird erreicht, indem ich die Implementierung des Loggers, Auditing, Auswertung und Alarm darstelle.
 
 #### Erklärung
-3. Erklären Sie das Artefakt in wenigen Sätzen. Sollte das Artefakt mehrere Handlungsziele beinhalten dürfen Sie die Erklärung auch zusammenfassen.
+Die Zeile _logger.LogInformation($"Login attempt for user '{username}'"); zeigt, wie man einen Log erstellt und anzeigt, dass ein Anmeldeversuch für einen bestimmten Benutzer erfolgt ist.
+
+Die Methode AuditLog wird aufgerufen, um eine Audit-Protokollierung durchzuführen. In diesem Fall wird ein Eintrag in einer Audit-Log-Tabelle oder einem Audit-Log-Objekt erstellt, um den Benutzernamen, die Aktion ("Login attempt") und den Zeitstempel des Anmeldeversuchs zu erfassen. 
+
+Bei Auswertung und Alarm wird überprüft, ob verdächtige Aktivitäten beim Anmeldeversuch vorliegen. Falls ja, wird ein Sicherheitsalarm ausgelöst. Die Methode Alarm koennte zum Beispiel folgenden Code enthalten: 
+```
+_logger.LogWarning($"Security alarm triggered for suspicious activity by user '{username}'");
+```
+Also der Alarm ist ein weiterer Log output.
+Bei der Auswertung könnte zum Beispiel geprüft werden, wie viele Male der User sich an einem Tag eingeloggt hat.
 
 #### Rückblick
-4. Beurteilen Sie die Umsetzung Ihres Artefakts im Hinblick auf das Handlungsziel kritisch. Sollten gewisse Aspekte des Handlungsziels fehlen, haben Sie die Möglichkeit, in diesem Teil darauf einzugehen.
+Die Logging-Funktionalität wurde durch den Einsatz des Loggers realisiert, das Auditing durch die Methode AuditLog, und die Auswertung und Alarm durch die entsprechenden Codeabschnitte im Login-Controller.
 
+Das Handlungsziel wurde erreicht, da ich die Implementierung des Loggers, Auditings, Auswertung und Alarm gezeigt und definiert habe. 
 
+### Selbsteinschätzung
+Ich schätze, dass ich die Kompetenz in diesem Modul gut erreicht habe. Die vorgestellten Artefakte und Erklärungen zeigen, dass ich verschiedenste Sicherheitskonzepte verstanden habe. Die Rückblicke geben Einsicht in die Beurteilung der Umsetzung und zeigen auf, wo noch Verbesserungsmöglichkeiten oder weitere Schritte vorhanden sind, wie im Rückblick zu Handlungsziel 2 und 4.
 
-
-Selbsteinschätzung des Erreichungsgrades der Kompetenz des Moduls
-Geben Sie eine Selbsteinschätzung zu der Kompetenz in diesem Modul ab. Schätzen Sie selbst ein, inwiefern Sie die Kompetenz dieses Moduls erreicht haben und inwiefern nicht. Es geht in diesem Abschnitt nicht darum, auf die einzelnen Handlungsziele einzugehen. Das haben Sie bereits gemacht. Begründen Sie ihre Aussagen. 
+Insgesamt denke ich, dass ich die Sicherheitsmechanismen im Entwurf und in der Implementierung gut umsetzen kann, aber es gibt immer Raum für weiteres Lernen und Vertiefen von Sicherheitskonzepten und Best Practices, da es auch stets ein entwickelndes Gebiet ist und immer neue Sicherheitslücken auftauchen. Es ist wichtig sich stets mit den neusten Sicherheitsmassnahmen und Bedrohungen sich zu informieren.
